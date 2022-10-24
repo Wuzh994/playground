@@ -14,16 +14,14 @@
   const { width: wrapperWidth, height: wrapperHeight } = useElementBounding(wrapper)
 
   const colors = [
-    ['rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 1)'],
-    ['rgba(0, 255, 0, 1)', 'rgba(0, 255, 0, 1)'],
-    ['rgba(0, 0, 255, 1)', 'rgba(255, 0, 0, 1)'],
+    ['rgba(43, 143, 254, 1)', 'rgba(216, 224, 252, 0.54)'],
+    ['rgba(51, 87, 219, 1)', 'rgba(216, 224, 252, 0.54)'],
+    ['rgba(217, 182, 130, 1)', 'rgba(216, 224, 252, 0.54)'],
   ]
 
   function initCanvas(canvas, width = 400, height = 400, _dpi = null) {
-
     const _width = unref(width)
     const _height = unref(height)
-
 
     const ctx = canvas.getContext('2d')
 
@@ -47,43 +45,34 @@
 
     // 画圆环
     const draw = ([c1, c2], x = 0, y = 200, r = 100) => {
-      // const _x =
-      // let linear = ctx.createLinearGradient(x, 0, 200, 200)
-      const _x = Math.floor(x)
-      const _y = Math.floor(y)
-      console.log(_x, _y)
-      // const _offset = Math.floor(Math.PI*r/12)
-      const _offset = Math.floor(Math.PI*r/8)
-      console.log(_offset)
-      let linear = ctx.createLinearGradient(_x, _y, _x + _offset, _y + _offset)
-      // let linear = ctx.createLinearGradient(x, y, x + Math.PI*r/6, y + Math.PI*r/6)
-
+      const x0 = Math.floor(x)
+      const y0 = Math.floor(y)
       // TODO
-      // console.log(c1, c2)
+      const _offset = Math.floor(Math.PI*r/3)
+      const x1 = x0 + _offset
+      const y1 = y0 + _offset
+
+      let linear = ctx.createLinearGradient(x0, y0, x1, y1)
       linear.addColorStop(0,c1);
       linear.addColorStop(1,c2);
 
-      ctx.lineWidth = 50
       ctx.beginPath()
+      ctx.lineWidth = 50
       // 圆环
       ctx.arc(x, y, r, 0, Math.PI * 2, true);
       // 上色
       ctx.strokeStyle = linear
-      ctx.closePath()
       ctx.stroke();
-      linear = null
+      ctx.closePath()
     }
 
-    // y轴坐标
-    const pointY = (n = 1) => (2 * n - 1) * radius
     // 根据高度画圆环
-    // for (let i = 1; i < Math.floor(wrapperHeight.value / (2 * radius)) + 1; i++) {
-    //   // 左侧 x=0 右侧 x=窗口大小
-    //   console.log('==> ', (i-1) % colors.length)
-    //   draw(colors[(i-1) % colors.length], i % 2 === 0 ? wrapperWidth.value / 2 : 0, pointY(i))
-    // }
-    draw(colors[0], 2*radius, pointY(1))
-    draw(colors[1], wrapperWidth.value / 2, pointY(2))
+    for (let i = 1; i < Math.floor(wrapperHeight.value / (2 * radius)) + 1; i++) {
+      // 左侧 x=0 右侧 x=容器大小
+      const _x = i % 2 === 0 ? wrapperWidth.value : 0
+      const _y = i * 2 * radius
+      draw(colors[(i-1) % colors.length], _x, _y)
+    }
 
     const throttleFn = useThrottleFn(() => {
       const _top = +canvas.style.top.slice(0, -2)
