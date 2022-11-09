@@ -1,12 +1,14 @@
 {
   "name": "playground",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@vueuse/core": "^9.3.1",
@@ -16,7 +18,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
+    "@wzh994/eslint-config": "^0.1.1",
+    "cesium": "^1.99.0",
+    "eslint": "^8.27.0",
     "less": "^4.1.3",
-    "vite": "^3.1.0"
+    "vite": "^3.2.3",
+    "vite-plugin-cesium": "^1.2.22"
   }
 }
