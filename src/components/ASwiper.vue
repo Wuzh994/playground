@@ -1,12 +1,12 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
 
 const swiperRef = ref(null)
 // 取值为轮播长度
@@ -29,32 +29,39 @@ const onSlideChange = (swiper) => {
 function handleDot(e) {
   const { index } = e.target.dataset
   swiperRef.value.$el.swiper.slideTo(index)
-
 }
 </script>
 
 <template>
   <div class="a-swiper">
     <ul class="swiper-dots" @click="handleDot">
-      <li class="dot" :class="activeIndex === 0 ? 'dot-active' : ''" data-index="0">1</li>
-      <li class="dot" :class="activeIndex === 1 ? 'dot-active' : ''" data-index="1">2</li>
-      <li class="dot" :class="activeIndex === 2 ? 'dot-active' : ''" data-index="2">3</li>
-      <li class="dot" :class="activeIndex === 3 ? 'dot-active' : ''" data-index="3">4</li>
+      <li class="dot" :class="activeIndex === 0 ? 'dot-active' : ''" data-index="0">
+        1
+      </li>
+      <li class="dot" :class="activeIndex === 1 ? 'dot-active' : ''" data-index="1">
+        2
+      </li>
+      <li class="dot" :class="activeIndex === 2 ? 'dot-active' : ''" data-index="2">
+        3
+      </li>
+      <li class="dot" :class="activeIndex === 3 ? 'dot-active' : ''" data-index="3">
+        4
+      </li>
     </ul>
-    <swiper
+    <Swiper
       ref="swiperRef"
       :slides-per-view="1"
       :space-between="50"
       @swiper="onSwiper"
-      @slideChange="onSlideChange"
+      @slide-change="onSlideChange"
     >
       <!-- <slot> -->
-        <swiper-slide>1</swiper-slide>
-        <swiper-slide>2</swiper-slide>
-        <swiper-slide>3</swiper-slide>
-        <swiper-slide>4</swiper-slide>
+      <SwiperSlide>1</SwiperSlide>
+      <SwiperSlide>2</SwiperSlide>
+      <SwiperSlide>3</SwiperSlide>
+      <SwiperSlide>4</SwiperSlide>
       <!-- </slot> -->
-    </swiper>
+    </Swiper>
   </div>
 </template>
 
