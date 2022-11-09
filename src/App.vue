@@ -1,7 +1,7 @@
 <script setup>
-import MetaEarthVue from './components/MetaEarth.vue'
+import MetaEarth from './components/MetaEarth.vue'
 </script>
 
 <template>
-  <MetaEarthVue />
+  <MetaEarth />
 </template>
